@@ -52,7 +52,7 @@ If you're installing plain Linux, my prefered route for booting is to stick `/bo
 
 I used TrueNAS Scale 25.10.0.
 
-1. Download the ISO and burn it to a USB stick with your choice of software. I used [Balena Etcher] (https://etcher.balena.io/)
+1. Download the ISO and burn it to a USB stick with your choice of software. I used [Balena Etcher](https://etcher.balena.io/)
 2. Boot the MicroServer from the USB stick. NB: If it's a USB 3.0 stick, use the blue ports on the rear. All the black ones are USB 2.0
 > **I'm going to do an unsupported install of the OS using a 16GB filesystem on the SSD as I want to use the rest of it for apps.**
 3. If you have access to the iLO HTML5 console use that to do the install, otherwise use a standard KVM.
@@ -159,4 +159,31 @@ root@microserver[/]# zpool export apps
     - Storage > Import Pool
     - Select `apps` from the dropdown
 
-# TrueNAS configuration
+## TrueNAS final disk layout
+> Turns out, TrueNAS seems to find disks in a (slightly) more logical order:
+```
+truenas_admin@microserver[~]$ lsblk
+NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
+sda      8:0    0 465.8G  0 disk <-- Bay 1
+└─sda1   8:1    0 463.8G  0 part 
+sdb      8:16   0 465.8G  0 disk <-- Bay 2
+└─sdb1   8:17   0 463.8G  0 part 
+sdc      8:32   0 465.8G  0 disk <-- Bay 3
+└─sdc1   8:33   0 463.8G  0 part 
+sdd      8:48   0 465.8G  0 disk <-- Bay 4
+└─sdd1   8:49   0 463.8G  0 part 
+sde      8:64   0   3.7G  0 disk <-- 4GB microSD card
+├─sde1   8:65   0     1M  0 part 
+└─sde2   8:66   0   3.7G  0 part 
+sdf      8:80   0 465.8G  0 disk <-- OS disk
+├─sdf1   8:81   0     1M  0 part 
+├─sdf2   8:82   0   512M  0 part 
+├─sdf3   8:83   0  15.5G  0 part 
+└─sdf4   8:84   0 449.8G  0 part 
+sdg      8:96   0   1.8T  0 disk <-- 2TB backup USB disk
+└─sdg1   8:97   0   1.8T  0 part
+```
+
+# TrueNAS configuration (ToDo)
+- Hostname + custom domain
+- LAGG configuration + Static IP
