@@ -109,4 +109,54 @@ cd /
 umount /tmp/usb
 reboot
 ```
-## ZFS filesystem on the rest of the SSD1. Boot into an Ubuntu Live USB
+## ZFS filesystem on the rest of the SSD
+> Again, this is an unsupported configuration, but I plan to backup the apps datasets anyway, so it's a risk I'll take.
+> It's based on (https://gist.github.com/gangefors/2029e26501601a99c501599f5b100aa6)
+
+1. On the TrueNAS console, enter the `shell` and become root with `sudo su`
+> Note: `parted` will probably complain about not being able to align the partition correctly if you just use that with the next available sector to start, and the last available sector to end the new partition. Easiest fix I've found here is to use `fdisk` to get the first/last sectors, then use `parted` to actually create the partition as per the above guide.
+```
+root@microserver[/]# fdisk /dev/sdf
+
+Welcome to fdisk (util-linux 2.38.1).
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+This disk is currently in use - repartitioning is probably a bad idea.
+It's recommended to umount all file systems, and swapoff all swap partitions on this disk.
+
+Command (m for help): p
+Disk /dev/sdf: 465.76 GiB, 500107862016 bykes, 976773168 sectors
+Disk model: WDC WDS500G1B0A-
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/0 size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: 3C716C7D-7F01-4569-AB27-0B341DE795A6
+
+Device      Start     End       Sectors     Size Type
+/dev/sdf1   4096      6143      2048        1M BIOS boot
+/dev/sdf2   6144      1054719   1048576     512M EFI System
+/dev/sdf3   1054720   33554432  32499713    15.56 Solaris /usr & Apple ZFS
+
+Command (m for help): n
+Partition number (4-128, default 4):
+First sector (34-976773134, default **33556480**) :
+Last sector, +/-sectors or +/-sizeK.M,G,T.P3 (33556480-976773134, default **976773119**):
+```
+> The highlighted numbers are what you'll need to use in `parted`
+2. In `parted`
+```
+root@microserver[/]# parted /dev/sdf
+(parted) mkpart ssd-pool 33556480s 976773119s
+```
+3. Now create the ZFS pool
+```
+root@microserver[/]# zpool create apps /dev/sdf4
+root@microserver[/]# zpool export apps
+```
+4. Import the pool into TrueNAS
+    - Storage > Import Pool
+    - Select `apps` from the dropdown
+
+# TrueNAS configuration
