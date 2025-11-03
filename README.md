@@ -69,7 +69,7 @@ sed -i 's/-n3:0:0/-n3:0:+16384M/g' /usr/lib/python3/dist-packages/truenas_instal
 
 1. Boot into an Ubuntu Live USB
 2. Drop to a console (alt-F2 at the first installer screen)
-3. Determine which `/dev/sdX` device your microSD card is (use lsblk and look for the one which is 4GB/3.7GiB in size)
+3. Determine which `/dev/sdX` device your microSD card is (use `lsblk` and look for the one which is 4GB/3.7GiB in size)
 4. Use `fdisk` to setup the card for booting. (These are abridged instructions).
 ```
 fdisk /dev/sdX
@@ -109,3 +109,4 @@ cd /
 umount /tmp/usb
 reboot
 ```
+## ZFS filesystem on the rest of the SSD1. Boot into an Ubuntu Live USB
