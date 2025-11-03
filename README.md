@@ -52,7 +52,7 @@ If you're installing plain Linux, my prefered route for booting is to stick `/bo
 
 I used TrueNAS Scale 25.10.0.
 
-1. Download the ISO and burn it to a USB stick with your choice of software. I used [Balena Etcher] (https://etcher.balena.io/
+1. Download the ISO and burn it to a USB stick with your choice of software. I used [Balena Etcher] (https://etcher.balena.io/)
 2. Boot the MicroServer from the USB stick. NB: If it's a USB 3.0 stick, use the blue ports on the rear. All the black ones are USB 2.0
 > **I'm going to do an unsupported install of the OS using a 16GB filesystem on the SSD as I want to use the rest of it for apps.**
 3. If you have access to the iLO HTML5 console use that to do the install, otherwise use a standard KVM.
