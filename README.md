@@ -141,8 +141,8 @@ Device      Start     End       Sectors     Size Type
 
 Command (m for help): n
 Partition number (4-128, default 4):
-First sector (34-976773134, default **33556480**) :
-Last sector, +/-sectors or +/-sizeK.M,G,T.P3 (33556480-976773134, default **976773119**):
+First sector (34-976773134, default 33556480) : <-- This number
+Last sector, +/-sectors or +/-sizeK.M,G,T.P3 (33556480-976773134, default 976773119): <-- This number
 ```
 > The highlighted numbers are what you'll need to use in `parted`
 2. In `parted`
