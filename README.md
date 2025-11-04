@@ -1,5 +1,7 @@
 # MicroServer
-Notes on use of an HP ProLiant MicroServer in 2025 for self hosting
+Notes on use of an HP ProLiant MicroServer in 2025 for self hosting.
+
+![image](https://github.com/user-attachments/assets/7d7cc73d-4575-4767-a445-345dc6caa1f5)
 
 ## Specification
 This server is an HP ProLiant MicroServer Gen8:
