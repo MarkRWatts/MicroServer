@@ -35,14 +35,16 @@ Exierience shows that the boot order is usually something like this:
    1. Disk Bay 1-4
    2. Disk Bay 5 (ODD)
 
-> Note that the 4 SATA slots plus the 5th SATA port used for the optical disk drive are connected to a "HPE Dynamic Smart Array B120i Controller". This is a fakeraid controller which uses drivers and firmware to pretend to be a RAID controller. Use it AHCI mode instead.  Bays 1+2 are SATA 6G, while 3+4 + the ODD are 3G, so you may not get a clean /dev/sda-d being those 4 disks. Often /dev/sdc is either the SD card or the ODD bay.
+> [!NOTE]
+> The 4 SATA slots plus the 5th SATA port used for the optical disk drive are connected to a "HPE Dynamic Smart Array B120i Controller". This is a fakeraid controller which uses drivers and firmware to pretend to be a RAID controller. Use it AHCI mode instead.  Bays 1+2 are SATA 6G, while 3+4 + the ODD are 3G, so you may not get a clean /dev/sda-d being those 4 disks. Often /dev/sdc is either the SD card or the ODD bay.
 
 I highly recommend using the `/dev/disk/by-uuid/` route for addressing disks instead of `/dev/sdX`.
 
 If you're installing plain Linux, my prefered route for booting is to stick `/boot` onto the SD card, `/` and other filesystems on the SSD in the optical bay, then configure an mdadm RAID with the other disks. Dealers choice as to how you carve that up
 
 # TrueNAS
-> **This install will WIPE all of your disks. You have been warned**
+> [!WARNING]
+> This install will WIPE all of your disks. You have been warned.
 
 I used TrueNAS Scale 25.10.0.
 
@@ -96,7 +98,8 @@ menuentry 'TrueNAS' {
 	chainloader +1
 }
 ```
-> NB: The above asssumes you have all 4 disks and you've installed the OS to the disk in the optical bay. If you have fewer disks, you need to use the appropriate `hdX` for the number of disks you actually have, not the number of bays), or add multiple menuentry sections for each disk in decreasing order.
+> [!NOTE]
+> The above asssumes you have all 4 disks and you've installed the OS to the disk in the optical bay. If you have fewer disks, you need to use the appropriate `hdX` for the number of disks you actually have, not the number of bays), or add multiple menuentry sections for each disk in decreasing order.
 8. Unmount the microSD card and reboot, hopefully into TrueNAS
 ```
 cd / 
@@ -108,7 +111,8 @@ reboot
 > It's based on (https://gist.github.com/gangefors/2029e26501601a99c501599f5b100aa6)
 
 1. On the TrueNAS console, enter the `shell` and become root with `sudo su`
-> Note: `parted` will probably complain about not being able to align the partition correctly if you just use that with the next available sector to start, and the last available sector to end the new partition. Easiest fix I've found here is to use `fdisk` to get the first/last sectors, then use `parted` to actually create the partition as per the above guide.
+> [!NOTE]
+> `parted` will probably complain about not being able to align the partition correctly if you just use that with the next available sector to start, and the last available sector to end the new partition. Easiest fix I've found here is to use `fdisk` to get the first/last sectors, then use `parted` to actually create the partition as per the above guide.
 ```
 root@microserver[/]# fdisk /dev/sdf
 
@@ -182,6 +186,7 @@ sdg      8:96   0   1.8T  0 disk <-- 2TB backup USB disk
 
 I have a Netgear GS108T managed 8-port gigabit switch. This supports LACP link aggregation. So does TrueNAS.
 
+> [!TIP]
 > There's a potential race condition here as you need to configure both ends of the link at more-or-less the same time. Due to the way link aggregation works, the aggregated interface `bond1` in Linux will use the MAC address of the first interface, and if you're using DHCP (for now) you'll end up with the same IP as before. This *should* mean you don't end up being unable to connect to the web interface of TrueNAS.
 
 ### On the switch
@@ -201,7 +206,8 @@ I have a Netgear GS108T managed 8-port gigabit switch. This supports LACP link a
    - Link Aggregation Interfaces: eno1, eno2
 3. Click `Save`
 
-> Note that TrueNAS will give you 60 seconds to commit the change before it does a roll-back. Do some quick testing then commit.
+> [!NOTE]
+> that TrueNAS will give you 60 seconds to commit the change before it does a roll-back. Do some quick testing then commit.
 > If you add a dashboard widget monitoring the `bond1` interface, you should see it listed as 2000Mb/s.
 
 
