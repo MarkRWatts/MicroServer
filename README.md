@@ -33,15 +33,8 @@ Exierience shows that the boot order is usually something like this:
    1. Disk Bay 1-4
    2. Disk Bay 5 (ODD)
 
-Note that the 4 SATA slots plus the 5th SATA port used for the optical disk drive are connected to a "HPE Dynamic Smart Array B120i Controller". This is a fakeraid controller which uses drivers and firmware to pretend to be a RAID controller. Use it AHCI mode instead.  Bays 1+2 are SATA 6G, while 3+4 + the ODD are 3G, so you may not get a clean /dev/sda-d being those 4 disks. Often /dev/sdc is either the SD card or the ODD bay. On Ubuntu I've see:
-```
-/dev/sda = Bay 1
-/dev/sdb = Bay 2
-/dev/sdc = microSD
-/dev/sdd = Bay 3
-/dev/sde = Bay 4
-/dev/sdf = ODD
-```
+> Note that the 4 SATA slots plus the 5th SATA port used for the optical disk drive are connected to a "HPE Dynamic Smart Array B120i Controller". This is a fakeraid controller which uses drivers and firmware to pretend to be a RAID controller. Use it AHCI mode instead.  Bays 1+2 are SATA 6G, while 3+4 + the ODD are 3G, so you may not get a clean /dev/sda-d being those 4 disks. Often /dev/sdc is either the SD card or the ODD bay.
+
 I highly recommend using the `/dev/disk/by-uuid/` route for addressing disks instead of `/dev/sdX`.
 
 If you're installing plain Linux, my prefered route for booting is to stick `/boot` onto the SD card, `/` and other filesystems on the SSD in the optical bay, then configure an mdadm RAID with the other disks. Dealers choice as to how you carve that up
