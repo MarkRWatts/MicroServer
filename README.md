@@ -184,7 +184,7 @@ I have a Netgear GS108T managed 8-port gigabit switch. This supports LACP link a
 
 ### On the switch
 1. Identify the two switch ports you've connected the two server interfaces into. Ports 6 & 7 for me.
-2. Login to the switch (default password is `paasword`), and navigate to `Switching > LAG`
+2. Login to the switch (default password is `password`), and navigate to `Switching > LAG`
 3. Check the box next to `LAG1`, change the `LAG Type` to `LACP` and hit `Apply`
 4. Click on `LAG Membership`, and expand the dropdown in the orange box for `LAG1`
 5. Check the boxes for the ports you want in the LAG, and hit `Apply`
