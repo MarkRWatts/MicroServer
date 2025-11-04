@@ -43,14 +43,15 @@ I highly recommend using the `/dev/disk/by-uuid/` route for addressing disks ins
 If you're installing plain Linux, my prefered route for booting is to stick `/boot` onto the SD card, `/` and other filesystems on the SSD in the optical bay, then configure an mdadm RAID with the other disks. Dealers choice as to how you carve that up
 
 # TrueNAS
-> [!WARNING]
+> [!CAUTION]
 > This install will WIPE all of your disks. You have been warned.
 
 I used TrueNAS Scale 25.10.0.
 
 1. Download the ISO and burn it to a USB stick with your choice of software. I used [Balena Etcher](https://etcher.balena.io/)
 2. Boot the MicroServer from the USB stick. NB: If it's a USB 3.0 stick, use the blue ports on the rear. All the black ones are USB 2.0
-> **I'm going to do an unsupported install of the OS using a 16GB filesystem on the SSD as I want to use the rest of it for apps.**
+> [!WARNING]
+> I'm going to do an unsupported install of the OS using a 16GB filesystem on the SSD as I want to use the rest of it for apps.
 3. If you have access to the iLO HTML5 console use that to do the install, otherwise use a standard KVM.
 4. Select “Shell” from the Console Setup menu.
 5. Execute the following command to modify the in-memory installer script:
@@ -107,6 +108,7 @@ umount /tmp/usb
 reboot
 ```
 ## ZFS filesystem on the rest of the SSD
+> [!NOTE]
 > Again, this is an unsupported configuration, but I plan to backup the apps datasets anyway, so it's a risk I'll take.
 > It's based on (https://gist.github.com/gangefors/2029e26501601a99c501599f5b100aa6)
 
