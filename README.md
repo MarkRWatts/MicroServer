@@ -25,7 +25,7 @@ This server is an HP ProLiant MicroServer Gen8:
 
 # Installation notes
 
-HP MicroServer's have limited flexibility for boot ordering; you cannot easilly specify which SATA disk to boot from.
+HP MicroServers have limited flexibility for boot ordering; you cannot easilly specify which SATA disk to boot from.
 Exierience shows that the boot order is usually something like this:
 1. External USB
 2. Internal USB/SD Slot
@@ -140,7 +140,7 @@ Last sector, +/-sectors or +/-sizeK.M,G,T.P3 (33556480-976773134, default 976773
 2. In `parted`
 ```
 root@microserver[/]# parted /dev/sdf
-(parted) mkpart ssd-pool 33556480s 976773119s
+(parted) mkpart apps 33556480s 976773119s
 ```
 3. Now create the ZFS pool
 ```
