@@ -3,8 +3,7 @@ Notes on use of an HP ProLiant MicroServer in 2025 for self hosting
 
 ## Specification
 This server is an HP ProLiant MicroServer Gen8:
-- Celeron G1610T processor
-  - To be upgraded with an Intel Xeon E3-1265L V2 processor
+- Intel Xeon E3-1265L V2 processor (4C/4T)
 - 16GB (2x8GB) Samsung DDR3 1600 ECC
 - 4GB SanDisk microSD card (for OS booting) in the internal slot
 - 4x Seagate 500GB SATA disks (for data) in the front drive bays
