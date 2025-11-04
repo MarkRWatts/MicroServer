@@ -180,7 +180,7 @@ sdg      8:96   0   1.8T  0 disk <-- 2TB backup USB disk
 
 I have a Netgear GS108T managed 8-port gigabit switch. This supports LACP link aggregation. So does TrueNAS.
 
-> There's a potential race condition here as you need to configure both ends of the link at more-or-less the same time. Due to the way link aggregation works, the aggregated interface `bond1` in Linux will use the MAC address of the first interface, and if you're using DHCP (for now) you'll end up with the same IP as before. This /should/ mean you don't end up being unable to connect to the web interface of TrueNAS.
+> There's a potential race condition here as you need to configure both ends of the link at more-or-less the same time. Due to the way link aggregation works, the aggregated interface `bond1` in Linux will use the MAC address of the first interface, and if you're using DHCP (for now) you'll end up with the same IP as before. This *should* mean you don't end up being unable to connect to the web interface of TrueNAS.
 
 ### On the switch
 1. Identify the two switch ports you've connected the two server interfaces into. Ports 6 & 7 for me.
