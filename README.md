@@ -170,12 +170,38 @@ sde      8:64   0   3.7G  0 disk <-- 4GB microSD card
 sdf      8:80   0 465.8G  0 disk <-- OS disk
 ├─sdf1   8:81   0     1M  0 part 
 ├─sdf2   8:82   0   512M  0 part 
-├─sdf3   8:83   0  15.5G  0 part 
-└─sdf4   8:84   0 449.8G  0 part 
+├─sdf3   8:83   0  15.5G  0 part <-- OS volume
+└─sdf4   8:84   0 449.8G  0 part <-- Apps volume
 sdg      8:96   0   1.8T  0 disk <-- 2TB backup USB disk
 └─sdg1   8:97   0   1.8T  0 part
 ```
 
+## LACP ethernet link aggregation (LAG)
+
+I have a Netgear GS108T managed 8-port gigabit switch. This supports LACP link aggregation. So does TrueNAS.
+
+> There's a potential race condition here as you need to configure both ends of the link at more-or-less the same time. Due to the way link aggregation works, the aggregated interface `bond1` in Linux will use the MAC address of the first interface, and if you're using DHCP (for now) you'll end up with the same IP as before. This /should/ mean you don't end up being unable to connect to the web interface of TrueNAS.
+
+### On the switch
+1. Identify the two switch ports you've connected the two server interfaces into. Ports 6 & 7 for me.
+2. Login to the switch (default password is `paasword`), and navigate to `Switching > LAG`
+3. Check the box next to `LAG1`, change the `LAG Type` to `LACP` and hit `Apply`
+4. Click on `LAG Membership`, and expand the dropdown in the orange box for `LAG1`
+5. Check the boxes for the ports you want in the LAG, and hit `Apply`
+
+### In TrueNAS
+1. Navigate to `System > Network`
+2. Click `Add` under `Interfaces`
+   - Type: Link Aggregation
+   - Name: bond1
+   - DHCP: Get IP Address Automatically from DHCP
+   - Link Aggregation Protocol: LACP (leave everything else in this section as-is)
+   - Link Aggregation Interfaces: eno1, eno2
+3. Click `Save`
+
+> Note that TrueNAS will give you 60 seconds to commit the change before it does a roll-back. Do some quick testing then commit.
+> If you add a dashboard widget monitoring the `bond1` interface, you should see it listed as 2000Mb/s.
+
+
 # TrueNAS configuration (ToDo)
 - Hostname + custom domain
-- LAGG configuration + Static IP
