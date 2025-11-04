@@ -108,7 +108,7 @@ umount /tmp/usb
 reboot
 ```
 ## ZFS filesystem on the rest of the SSD
-> [!NOTE]
+> [!CAUTION]
 > Again, this is an unsupported configuration, but I plan to backup the apps datasets anyway, so it's a risk I'll take.
 > It's based on (https://gist.github.com/gangefors/2029e26501601a99c501599f5b100aa6)
 
