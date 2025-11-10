@@ -8,8 +8,7 @@ This server is an HP ProLiant MicroServer Gen8:
 - Intel Xeon E3-1265L V2 processor (4C/4T)
 - 16GB (2x8GB) Samsung DDR3 1600 ECC
 - 4GB SanDisk microSD card (for OS booting) in the internal slot
-- 4x Seagate 500GB SATA disks (for data) in the front drive bays
-  - Likely to be replaced with a pair of ~20TB drives
+- 2x Toshiba N300 14TB NAS drives
 - 1x WD Blue 500GB SSD (for the OS) in the optical disk bay
 - iLO 4 Advanced
 - 1x 2TB Crucial P310 SSD in a USB 3.2 enclosure (for backups)
@@ -95,12 +94,12 @@ set default='0'
 set timeout='0'
 
 menuentry 'TrueNAS' {
-	set root=(hd5)
+	set root=(hd3)
 	chainloader +1
 }
 ```
 > [!NOTE]
-> The above asssumes you have all 4 disks and you've installed the OS to the disk in the optical bay. If you have fewer disks, you need to use the appropriate `hdX` for the number of disks you actually have, not the number of bays), or add multiple menuentry sections for each disk in decreasing order.
+> The above asssumes you have 2 disks in the removable bays, and you've installed the OS to the disk in the optical bay. If you have a different number of disks, you need to use the appropriate `hdX` for the number of disks you actually have, not the number of bays), or add multiple menuentry sections for each disk in decreasing order.
 8. Unmount the microSD card and reboot, hopefully into TrueNAS
 ```
 cd / 
