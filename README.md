@@ -5,8 +5,8 @@ Notes on use of an HP ProLiant MicroServer in 2025 for self hosting.
 
 ## Specification
 This server is an HP ProLiant MicroServer Gen8:
-- Intel Xeon E3-1265L V2 processor (4C/4T)
-- 16GB (2x8GB) Samsung DDR3 1600 ECC
+- Intel Xeon E3-1265L V2 processor (£20 shipped from China through eBay)
+- 16GB (2x8GB) Samsung DDR3 1600 ECC (£26 shipped from the UK through eBay)
 - 4GB SanDisk microSD card (for OS booting) in the internal slot
 - 2x Toshiba N300 14TB NAS drives
 - 1x WD Blue 500GB SSD (for the OS) in the optical disk bay
