@@ -22,7 +22,6 @@ This server is an HP ProLiant MicroServer Gen8:
   - Roon (music)
   - Unifi Network
   - Immich (photos)
-  - Homarr (dashboard)
 
 # Installation notes
 
