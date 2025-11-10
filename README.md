@@ -159,28 +159,24 @@ root@microserver[/]# zpool export apps
     - Select `apps` from the dropdown
 
 ## TrueNAS final disk layout
-> Turns out, TrueNAS seems to find disks in a (slightly) more logical order:
+> Behold, the random disk dection ordering of Linux:
 ```
 truenas_admin@microserver[~]$ lsblk
 NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
-sda      8:0    0 465.8G  0 disk <-- Bay 1
-└─sda1   8:1    0 463.8G  0 part 
-sdb      8:16   0 465.8G  0 disk <-- Bay 2
-└─sdb1   8:17   0 463.8G  0 part 
-sdc      8:32   0 465.8G  0 disk <-- Bay 3
-└─sdc1   8:33   0 463.8G  0 part 
-sdd      8:48   0 465.8G  0 disk <-- Bay 4
-└─sdd1   8:49   0 463.8G  0 part 
-sde      8:64   0   3.7G  0 disk <-- 4GB microSD card
-├─sde1   8:65   0     1M  0 part 
-└─sde2   8:66   0   3.7G  0 part 
-sdf      8:80   0 465.8G  0 disk <-- OS disk
-├─sdf1   8:81   0     1M  0 part 
-├─sdf2   8:82   0   512M  0 part 
-├─sdf3   8:83   0  15.5G  0 part <-- OS volume
-└─sdf4   8:84   0 449.8G  0 part <-- Apps volume
-sdg      8:96   0   1.8T  0 disk <-- 2TB backup USB disk
-└─sdg1   8:97   0   1.8T  0 part
+sda      8:0    0  12.7T  0 disk <-- 14TB disk in bay 1
+└─sda1   8:1    0  12.7T  0 part 
+sdb      8:16   0   3.7G  0 disk <-- microSD card in internal slot
+├─sdb1   8:17   0     1M  0 part 
+└─sdb2   8:18   0   3.7G  0 part 
+sdc      8:32   0 465.8G  0 disk <-- 500GB SSD in ODD bay
+├─sdc1   8:33   0     1M  0 part 
+├─sdc2   8:34   0   512M  0 part 
+├─sdc3   8:35   0  15.5G  0 part 
+└─sdc4   8:36   0 449.8G  0 part 
+sdd      8:48   0  12.7T  0 disk <-- 14TB disk in bay 1
+└─sdd1   8:49   0  12.7T  0 part 
+sde      8:64   0   1.8T  0 disk <-- 2TB backup SSD in USB enclosure
+└─sde1   8:65   0   1.8T  0 part
 ```
 
 ## LACP ethernet link aggregation (LAG)
