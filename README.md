@@ -23,4 +23,4 @@ This server is an HP ProLiant MicroServer Gen8:
   - Unifi Network
   - Immich (photos)
 
-- [TrueNAS installation instructions](https://github.com/MarkRWatts/MicroServer/blob/main/TrueNAS/README.md))
+- [TrueNAS installation instructions](https://github.com/MarkRWatts/MicroServer/blob/main/TrueNAS/README.md)
